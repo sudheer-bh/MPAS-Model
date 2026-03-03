@@ -247,7 +247,7 @@
  real(kind=RKIND),dimension(:,:,:),allocatable:: &
     aod3d_smoke_p, aod3d_p
  real(kind=RKIND),dimension(:,:),allocatable:: &
-    aod550_p
+    aod550_p, int_sm_p, sm_bot_p, sm_top_p, sm_centroid_h_p
  real(kind=RKIND),dimension(:,:),allocatable:: &
     aero_emis_for_enhmix_p
 ! Input/output smoke 2D fields - JLS
