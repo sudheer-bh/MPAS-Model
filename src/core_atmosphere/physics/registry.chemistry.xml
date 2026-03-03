@@ -340,6 +340,10 @@
               <var name="aod3d"/>
               <var name="aod550"/>
               <var name="vis"/>
+		      <var name="int_sm"/>
+		      <var name="sm_top"/>
+		      <var name="sm_bot"/>
+		      <var name="sm_centroid_h"/>
               <var name="ddvel"/>
               <var name="drydep_flux"/>
               <var name="wetdep_resolved"/>
@@ -804,6 +808,14 @@
 
       <var name="vis" type="real" dimensions="nCells Time" units="m"
            description="Visibility"/>
+      <var name="int_sm" type="real" dimensions="nCells Time" units="m"
+           description="Integrated Smoke"/>
+      <var name="sm_top" type="real" dimensions="nCells Time" units="m"
+           description="Smoke Layer Top"/>
+      <var name="sm_bot" type="real" dimensions="nCells Time" units="m"
+           description="Smoke layer Bottom"/>
+      <var name="sm_centroid_h" type="real" dimensions="nCells Time" units="m"
+           description="Smoke Centroid Height"/>
       <var name="frac_grid_burned" type="real" dimensions="nCells Time" units="-"
            description="fraction of grid cell area burned"
            packages="mpas_smoke_in"/>
