@@ -808,14 +808,14 @@
 
       <var name="vis" type="real" dimensions="nCells Time" units="m"
            description="Visibility"/>
-      <var name="int_sm" type="real" dimensions="nCells Time" units="m"
-           description="Integrated Smoke"/>
+      <var name="int_sm" type="real" dimensions="nCells Time" units="g m^{-2}"
+           description="Column Integrated Smoke"/>
       <var name="sm_top" type="real" dimensions="nCells Time" units="m"
-           description="Smoke Layer Top"/>
+           description="Smoke Layer Top MSL"/>
       <var name="sm_bot" type="real" dimensions="nCells Time" units="m"
-           description="Smoke layer Bottom"/>
+           description="Smoke layer Bottom MSL"/>
       <var name="sm_centroid_h" type="real" dimensions="nCells Time" units="m"
-           description="Smoke Centroid Height"/>
+           description="Smoke Centroid Height MSL"/>
       <var name="frac_grid_burned" type="real" dimensions="nCells Time" units="-"
            description="fraction of grid cell area burned"
            packages="mpas_smoke_in"/>
