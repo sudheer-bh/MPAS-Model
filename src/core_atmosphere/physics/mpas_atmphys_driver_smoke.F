@@ -118,6 +118,10 @@
 
  if(.not.allocated(vis_p)       ) allocate(vis_p(ims:ime,jms:jme)                )
  if(.not.allocated(aod550_p)    ) allocate(aod550_p(ims:ime,jms:jme)                )
+ if(.not.allocated(int_sm_p)    ) allocate(int_sm_p(ims:ime,jms:jme)                )
+ if(.not.allocated(sm_top_p)    ) allocate(sm_top_p(ims:ime,jms:jme)                )
+ if(.not.allocated(sm_bot_p)    ) allocate(sm_bot_p(ims:ime,jms:jme)                )
+ if(.not.allocated(sm_centroid_h_p)    ) allocate(sm_centroid_h_p(ims:ime,jms:jme)  )
  if(.not.allocated(aod3d_p))      allocate(aod3d_p(ims:ime,kms:kme,jms:jme))
 
  if ( config_smoke_scheme .ne. 'off' ) then
@@ -318,6 +322,10 @@
  if(allocated(PM2_5_p)      )         deallocate(PM2_5_p      )
  if(allocated(PM10_p)       )         deallocate(PM10_p       )
  if(allocated(aod550_p)     )         deallocate(aod550_p     )
+ if(allocated(int_sm_p)     )         deallocate(int_sm_p     )
+ if(allocated(sm_top_p)     )         deallocate(sm_top_p     )
+ if(allocated(sm_bot_p)     )         deallocate(sm_bot_p     )
+ if(allocated(sm_centroid_h_p)   )    deallocate(sm_centroid_h_p)
  if(allocated(aod3d_smoke_p))         deallocate(aod3d_smoke_p)
  if(allocated(aod3d_p)      )         deallocate(aod3d_p      )
 
@@ -958,7 +966,7 @@
  real(kind=RKIND),dimension(:),    pointer:: hfx_bb, qfx_bb, frac_grid_burned
  real(kind=RKIND),dimension(:,:)  ,pointer:: PM2_5, PM10
  real(kind=RKIND),dimension(:,:)  ,pointer:: aod3d_smoke, aod3d
- real(kind=RKIND),dimension(:),    pointer:: aod550
+ real(kind=RKIND),dimension(:),    pointer:: aod550, int_sm, sm_bot, sm_top, sm_centroid_h
  real(kind=RKIND),dimension(:,:,:),pointer:: e_ant_out, e_bb_out, e_bio_out, &
                                              e_vol_out, e_dust_out, e_ss_out
  real(kind=RKIND),dimension(:),pointer :: aero_emis_for_enhmix
@@ -988,6 +996,10 @@
  call mpas_pool_get_array(diag_physics,'PM10',PM10)
  call mpas_pool_get_array(diag_physics,'aod3d',aod3d)
  call mpas_pool_get_array(diag_physics,'aod550',aod550)
+ call mpas_pool_get_array(diag_physics,'int_sm',int_sm)
+ call mpas_pool_get_array(diag_physics,'sm_top',sm_top)
+ call mpas_pool_get_array(diag_physics,'sm_bot',sm_bot)
+ call mpas_pool_get_array(diag_physics,'sm_centroid_h',sm_centroid_h)
 
  call mpas_pool_get_array(diag_physics,'ddvel',ddvel)
  call mpas_pool_get_array(diag_physics,'wetdep_resolved',wetdep_resolved)
@@ -1195,7 +1207,11 @@
       do j = jts,jte
       do i = its,ite
          vis(i)       = vis_p(i,j)
-       aod550(i)      = aod550_p(i,j)
+         aod550(i)    = aod550_p(i,j)
+         int_sm(i)    = int_sm_p(i,j) 
+         sm_top(i)    = sm_top_p(i,j) 
+         sm_bot(i)    = sm_bot_p(i,j) 
+         sm_centroid_h(i)    = sm_centroid_h_p(i,j) 
          if (config_smoke_scheme .ne. 'off') then
             frp_out(i)          = frp_out_p(i,j)
             fre_out(i)          = fre_out_p(i,j)
@@ -1769,6 +1785,8 @@ endif
            blcldw_vis = qcbl_p, blcldi_vis = qibl_p,                                     &
            coszen = coszr_p,                                                             &
            aod3d_smoke = aod3d_smoke_p, aod3d = aod3d_p, vis    = vis_p          ,       &
+           int_sm  = int_sm_p    , sm_centroid_h =  sm_centroid_h_p,                     & 
+           sm_bot  = sm_bot_p    , sm_top = sm_top_p     ,                               &
            pi_phy  = pi_p        , rho_phy  = rho_p      , kpbl     = kpbl_p     ,       &
            nsoil   = num_soils   , smois    = smois_p    , tslb     = tslb_p     ,       &
            ivgtyp  = ivgtyp_p    , isltyp   = isltyp_p   , nlcat    = num_landcat,       &
