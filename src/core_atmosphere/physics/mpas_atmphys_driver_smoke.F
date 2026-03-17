@@ -46,6 +46,7 @@
  character(len=StrKIND),pointer :: config_volc_scheme
  character(len=StrKIND),pointer :: config_sna_scheme
  character(len=StrKIND),pointer :: config_rwc_scheme
+ character(len=StrKIND),pointer :: extended_sd_diags
 
  integer, pointer :: ebb_dcycle
  integer, pointer :: wetdep_ls_opt
@@ -416,6 +417,7 @@
       character(len=StrKIND),pointer :: config_sna_scheme
       character(len=StrKIND),pointer :: config_rwc_scheme
       character(len=StrKIND),pointer :: config_convection_scheme
+      character(len=StrKIND),pointer :: extended_sd_diags 
       integer, pointer :: wetdep_ls_opt
       integer, pointer :: drydep_opt
       integer, pointer :: plumerise_opt
@@ -441,6 +443,7 @@
       call mpas_pool_get_config(configs,'config_ssalt_scheme',config_ssalt_scheme)
       call mpas_pool_get_config(configs,'config_volc_scheme',config_volc_scheme)
       call mpas_pool_get_config(configs,'config_sna_scheme',config_sna_scheme)
+      call mpas_pool_get_config(configs,'extended_sd_diags',extended_sd_diags)
 
       call mpas_pool_get_config(configs,'wetdep_ls_opt',wetdep_ls_opt)
       call mpas_pool_get_config(configs,'drydep_opt',drydep_opt)
@@ -984,6 +987,7 @@
  character(len=StrKIND),pointer :: config_ssalt_scheme
  character(len=StrKIND),pointer :: config_volc_scheme
  character(len=StrKIND),pointer :: config_sna_scheme
+ character(len=StrKIND),pointer :: extended_sd_diags 
  integer, pointer :: wetdep_ls_opt
  integer, pointer :: drydep_opt
  integer, pointer :: plumerise_opt
@@ -993,6 +997,8 @@
 
 !local pointers:
  call mpas_pool_get_array(state,'scalars',scalars,time_lev)
+
+ call mpas_pool_get_config(configs,'extended_sd_diags',extended_sd_diags)
 
  call mpas_pool_get_array(diag_physics,'PM2_5',PM2_5)
  call mpas_pool_get_array(diag_physics,'PM10',PM10)
@@ -1022,6 +1028,7 @@
  call mpas_pool_get_config(configs,'config_ssalt_scheme',config_ssalt_scheme)
  call mpas_pool_get_config(configs,'config_volc_scheme',config_volc_scheme)
  call mpas_pool_get_config(configs,'config_sna_scheme',config_sna_scheme)
+  
  call mpas_pool_get_config(configs,'ebb_dcycle', ebb_dcycle)
  call mpas_pool_get_config(configs,'wetdep_ls_opt',wetdep_ls_opt)
  call mpas_pool_get_config(configs,'drydep_opt',drydep_opt)
@@ -1351,6 +1358,7 @@
  character(len=StrKIND),pointer :: config_bact_scheme
  character(len=StrKIND),pointer :: config_rwc_scheme
  character(len=StrKIND),pointer :: config_extra_chemical_tracers
+ character(len=StrKIND),pointer :: extended_sd_diags
  logical,pointer :: config_ultrafine, config_coarse
  integer,pointer                :: hwp_method
  real(kind=RKIND),pointer       :: hwp_alpha
@@ -1413,6 +1421,7 @@
  call mpas_pool_get_config(configs,'config_ultrafine',config_ultrafine)
  call mpas_pool_get_config(configs,'config_coarse',config_coarse)
  call mpas_pool_get_config(configs,'config_extra_chemical_tracers',config_extra_chemical_tracers)
+ call mpas_pool_get_config(configs,'extended_sd_diags',extended_sd_diags)
 ! Namelist: smoke
  call mpas_pool_get_config(configs,'hwp_method',hwp_method)
  call mpas_pool_get_config(configs,'hwp_alpha',hwp_alpha)
@@ -1639,6 +1648,7 @@ endif
 !--- Tracer indices
            config_extra_chemical_tracers = config_extra_chemical_tracers, &
            config_ultrafine = config_ultrafine, config_coarse = config_coarse, &
+           extended_sd_diags = extended_sd_diags,         &
            index_smoke_ultrafine = index_smoke_ultrafine, &
            index_dust_ultrafine = index_dust_ultrafine,   &
            index_unspc_ultrafine = index_unspc_ultrafine, &
