@@ -63,6 +63,7 @@
  call mpas_pool_get_config(configs,'config_volc_scheme',config_volc_scheme)
  call mpas_pool_get_config(configs,'config_sna_scheme',config_sna_scheme)
  call mpas_pool_get_config(configs,'config_rwc_scheme',config_rwc_scheme)
+ call mpas_pool_get_config(configs,'extended_sd_diags',extended_sd_diags)
 
  call mpas_pool_get_config(configs,'ebb_dcycle', ebb_dcycle)
  call mpas_pool_get_config(configs,'plumerise_opt',plumerise_opt)
@@ -118,10 +119,11 @@
 
  if(.not.allocated(vis_p)       ) allocate(vis_p(ims:ime,jms:jme)                )
  if(.not.allocated(aod550_p)    ) allocate(aod550_p(ims:ime,jms:jme)                )
- if(.not.allocated(int_sm_p)    ) allocate(int_sm_p(ims:ime,jms:jme)                )
- if(.not.allocated(sm_top_p)    ) allocate(sm_top_p(ims:ime,jms:jme)                )
- if(.not.allocated(sm_bot_p)    ) allocate(sm_bot_p(ims:ime,jms:jme)                )
- if(.not.allocated(sm_centroid_h_p)    ) allocate(sm_centroid_h_p(ims:ime,jms:jme)  )
+ if (extended_sd_diags .ne. 'off') then
+    if(.not.allocated(int_sm_p)    ) allocate(int_sm_p(ims:ime,jms:jme)                )
+    if(.not.allocated(sm_top_p)    ) allocate(sm_top_p(ims:ime,jms:jme)                )
+    if(.not.allocated(sm_bot_p)    ) allocate(sm_bot_p(ims:ime,jms:jme)                )
+    if(.not.allocated(sm_centroid_h_p)    ) allocate(sm_centroid_h_p(ims:ime,jms:jme)  )
  if(.not.allocated(aod3d_p))      allocate(aod3d_p(ims:ime,kms:kme,jms:jme))
 
  if ( config_smoke_scheme .ne. 'off' ) then
@@ -996,10 +998,11 @@
  call mpas_pool_get_array(diag_physics,'PM10',PM10)
  call mpas_pool_get_array(diag_physics,'aod3d',aod3d)
  call mpas_pool_get_array(diag_physics,'aod550',aod550)
- call mpas_pool_get_array(diag_physics,'int_sm',int_sm)
- call mpas_pool_get_array(diag_physics,'sm_top',sm_top)
- call mpas_pool_get_array(diag_physics,'sm_bot',sm_bot)
- call mpas_pool_get_array(diag_physics,'sm_centroid_h',sm_centroid_h)
+ if (extended_sd_diags .ne. 'off') then
+    call mpas_pool_get_array(diag_physics,'int_sm',int_sm)
+    call mpas_pool_get_array(diag_physics,'sm_top',sm_top)
+    call mpas_pool_get_array(diag_physics,'sm_bot',sm_bot)
+    call mpas_pool_get_array(diag_physics,'sm_centroid_h',sm_centroid_h)
 
  call mpas_pool_get_array(diag_physics,'ddvel',ddvel)
  call mpas_pool_get_array(diag_physics,'wetdep_resolved',wetdep_resolved)
@@ -1208,10 +1211,11 @@
       do i = its,ite
          vis(i)       = vis_p(i,j)
          aod550(i)    = aod550_p(i,j)
-         int_sm(i)    = int_sm_p(i,j) 
-         sm_top(i)    = sm_top_p(i,j) 
-         sm_bot(i)    = sm_bot_p(i,j) 
-         sm_centroid_h(i)    = sm_centroid_h_p(i,j) 
+         if (extended_sd_diags .ne. 'off') then
+            int_sm(i)    = int_sm_p(i,j) 
+            sm_top(i)    = sm_top_p(i,j) 
+            sm_bot(i)    = sm_bot_p(i,j) 
+            sm_centroid_h(i)    = sm_centroid_h_p(i,j)
          if (config_smoke_scheme .ne. 'off') then
             frp_out(i)          = frp_out_p(i,j)
             fre_out(i)          = fre_out_p(i,j)
