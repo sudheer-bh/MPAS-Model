@@ -1224,6 +1224,7 @@
             sm_top(i)    = sm_top_p(i,j) 
             sm_bot(i)    = sm_bot_p(i,j) 
             sm_centroid_h(i)    = sm_centroid_h_p(i,j)
+         endif
          if (config_smoke_scheme .ne. 'off') then
             frp_out(i)          = frp_out_p(i,j)
             fre_out(i)          = fre_out_p(i,j)
