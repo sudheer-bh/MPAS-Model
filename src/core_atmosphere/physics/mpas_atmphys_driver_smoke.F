@@ -125,6 +125,7 @@
     if(.not.allocated(sm_top_p)    ) allocate(sm_top_p(ims:ime,jms:jme)                )
     if(.not.allocated(sm_bot_p)    ) allocate(sm_bot_p(ims:ime,jms:jme)                )
     if(.not.allocated(sm_centroid_h_p)    ) allocate(sm_centroid_h_p(ims:ime,jms:jme)  )
+ endif
  if(.not.allocated(aod3d_p))      allocate(aod3d_p(ims:ime,kms:kme,jms:jme))
 
  if ( config_smoke_scheme .ne. 'off' ) then
@@ -1009,7 +1010,7 @@
     call mpas_pool_get_array(diag_physics,'sm_top',sm_top)
     call mpas_pool_get_array(diag_physics,'sm_bot',sm_bot)
     call mpas_pool_get_array(diag_physics,'sm_centroid_h',sm_centroid_h)
-
+ endif
  call mpas_pool_get_array(diag_physics,'ddvel',ddvel)
  call mpas_pool_get_array(diag_physics,'wetdep_resolved',wetdep_resolved)
  call mpas_pool_get_array(diag_physics,'drydep_flux',drydep_flux)
