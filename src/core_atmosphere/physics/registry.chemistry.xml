@@ -320,7 +320,11 @@
             units="-"
             description="scale factor for weed pollen emissions"
             possible_values="Positive real values"/>
-
+      <nml_option name="extended_sd_diags" type="character" default_value="off" in_defaults="false"
+           units="-"
+           description="flag for extended smoke diagnostics"
+           possible_values="`on',`off'"/>
+      
    </nml_record>
 
 <!-- **************************************************************************************** -->
