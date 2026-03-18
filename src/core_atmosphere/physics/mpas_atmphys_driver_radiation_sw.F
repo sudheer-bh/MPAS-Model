@@ -1138,6 +1138,7 @@
               swdnflx    = swdnflx_p     , swddir   = swddir_p    , swddni   = swddni_p       , &
               swddif     = swddif_p      , &
               config_calc_clean_atm_diag = config_calc_clean_atm_diag, &
+              julian     = curr_julday   ,                                                      &
               ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde ,           &
               ims = ims , ime = ime , jms = jms , jme = jme , kms = kms , kme = kme ,           &
               its = its , ite = ite , jts = jts , jte = jte , kts = kts , kte = kte             &
